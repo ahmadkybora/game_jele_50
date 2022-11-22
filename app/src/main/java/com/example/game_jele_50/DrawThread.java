@@ -37,6 +37,7 @@ public class DrawThread extends Thread{
             startTime = currentTime;
 
             if(uDeltaTime >= uOPTIMAL_TIME) {
+                view.update();
                 updates ++;
                 uDeltaTime -= uOPTIMAL_TIME;
             }
@@ -49,6 +50,16 @@ public class DrawThread extends Thread{
                     }
                     view.getHolder().unlockCanvasAndPost(canvas);
                 }
+                frames++;
+                fDeltaTime -= fOPTIMAL_TIME;
+            }
+
+            if(System.currentTimeMillis() -timer >= 1000) {
+                fps = frames;
+                ups = updates;
+                updates = 0;
+                frames = 0;
+                timer += 1000;
             }
         }
     }
